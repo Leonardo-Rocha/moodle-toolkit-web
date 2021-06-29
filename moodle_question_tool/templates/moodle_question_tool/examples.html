@@ -1,0 +1,168 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Moodle Question Toolkit</title>
+</head>
+<body class="h-100 d-flex flex-column">
+  <header>
+    <!-- NAVBAR-->
+    <nav class="navbar navbar-expand-lg py-3 navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand">
+          <!-- Logo Image -->
+          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.ufms.br%2Fwp-content%2Fuploads%2F2016%2F03%2Flogo.jpg" width="45" alt="" class="d-inline-block align-middle mr-2">
+          <!-- Logo Text -->
+          <span class="text-uppercase font-weight-semibold">Moodle Toolkit</span>
+        </a>
+
+        <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item active"><a href="/examples" class="nav-link">Examples <span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <main class="text-justify text-wrap pl-4 pr-4 py-3 flex-grow-1" style="width: 100vw; ">
+    <h2>Exemplos</h2>
+
+    <p>
+      Ao realizar uma conversão, o PDF inserido é retornado como um arquivo com a extensão <code>.md</code>. Para que seja possível
+      gerar os arquivos de saída em TeX ou GIFT é necessário "marcar" o arquivo md seguindo alguns padrões estabelecidos. <br> <br>
+      Abaixo há uma série de exemplos mostrando como marcar cada elemento de texto.
+    </p>
+
+    <h3>Questão</h3>
+
+    <p>Dada uma questão, marque seguindo o formato <code>#Q(numero-da-questao)</code>.</p>
+
+    <code>
+      QUESTÃO 46 <br>
+      Em um modelo de dados que descreve a publicação
+      acadêmica de pesquisadores de diferentes instituições
+      em eventos acadêmicos, considere as tabelas abaixo.
+    </code>
+
+    <br> <br>
+    <code>
+      #Q46 <br>
+      Em um modelo de dados que descreve a publicação
+      acadêmica de pesquisadores de diferentes instituições
+      em eventos acadêmicos, considere as tabelas abaixo.
+    </code>
+
+    <br> <br>
+
+    <h3>Alternativas</h3>
+
+    <p>Para cada alternativa, substitua por <code>-(letra).</code>, sendo que a letra deve ser minúscula e a primeira alternativa deve ser a <code>-a.</code>.</p>
+
+    <code>
+      A lógica nebulosa. <br>
+      B árvores de decisão. <br>
+      C redes neurais artificiais. <br>
+      D ACO (do inglês, Ant-Colony Optimization). <br>
+      E PSO (do inglês, Particle Swarm Optimization).
+    </code>
+
+    <br> <br>
+    <code>
+      -a. lógica nebulosa. <br>
+      -b. árvores de decisão. <br>
+      -c. redes neurais artificiais. <br>
+      -d. ACO (do inglês, Ant-Colony Optimization). <br>
+      -e. PSO (do inglês, Particle Swarm Optimization). <br>
+    </code>
+
+    <br>
+
+    <h3>Figuras</h3>
+
+    <p>
+      Para cada figura, adicione a marcação <code>![Texto Alternativo](fig-0000.jpg "legenda-opcional")</code>.
+      Essa marcação deve ser feita em uma única linha e o nome do arquivo deve seguir o padrão <code>fig-(numero).jpg</code> (a única extensão aceita por enquanto é JPG).
+      <br> <br>
+      O nome do arquivo é incrementado com uma pasta: <code>(nome-do-arquivo-md)_figuras/fig-(numero).jpg</code>. Isso implica que 
+      as imagens geradas devem ser salvas nessa pasta.
+      <br> <br>
+      Em caso de omissão da legenda, as aspas devem ser incluídas sem conteúdo: <code>![Texto Alternativo](fig-0000.jpg "")</code>. 
+      <br> <br>
+      Na conversão em TeX o texto alternativo é ignorado e a legenda é criada como caption. No caso do GIFT o texto alternativo permanece por acessibilidade.
+    </p>
+
+    <h3>Equações</h3> 
+
+    <p>As equações devem ser escritas diretamente no formato TeX, pois também é renderizado no Markdown, e marcadas com o formato <code>\( equacao_em_TeX \)</code>.</p>
+
+    <code>
+      \(\exists aluno(x) \wedge \forall y [disciplina(y) \wedge dificil(y)] \wedge gosta(x, y).\)
+    </code>
+
+    <br> <br>
+
+    <h3>Código</h3>
+
+    <p>
+      Código pode ser marcado de duas formas, em uma única linha ou multilinha. No multilinha é possível escolher uma linguagem
+      para fazer o realce de sintaxe. No caso de linha única por simplicidade é omitida a escolha, sendo por padrão SQL.
+      <br>
+      É recomendado iniciar uma nova linha para abrir código multilinha.
+    </p>
+
+    <h4>Linha Única</h4>
+
+    <code>`SELECT * FROM users;`</code>
+
+    <br>
+
+    <h4>Multilinha</h4>
+
+    <code>
+      ```sql <br>
+      SELECT CodDepartamento <br>
+      FROM EMPREGADO <br>
+      WHERE AVG (Salario) > 2000 <br>
+      GROUP BY CodDepartamento <br>
+      ```
+    </code>
+
+    <br> <br>
+
+    <h3>Quebra de Linha</h3>
+
+    <p>É possível quebrar linha inserindo linhas vazias ou forçando através do marcador <code>&lt;br/&gt;</code>.</p>
+
+    <br>
+  </main>
+
+  <footer class="align-bottom py-3" style="background-color: #f98012">
+    <div class="container text-center">
+      <p class="text-white font-weight-bold">Powered by Django</p> 
+      <!-- <svg width="90" height="90">       
+        <image xlink:href="https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg" style="fill:white" alt="django" width="90" height="90"/>    
+      </svg> -->
+      <p class="text-white font-weight-semibold">Made by UFMS. 2021</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Moodle Question Toolkit</title>
+</head>
+<body class="h-100 d-flex flex-column">
+  <header>
+    <!-- NAVBAR-->
+    <nav class="navbar navbar-expand-lg py-3 navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand">
+          <!-- Logo Image -->
+          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.ufms.br%2Fwp-content%2Fuploads%2F2016%2F03%2Flogo.jpg" width="45" alt="" class="d-inline-block align-middle mr-2">
+          <!-- Logo Text -->
+          <span class="text-uppercase font-weight-semibold">Moodle Toolkit</span>
+        </a>
+
+        <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="/examples" class="nav-link">Examples</a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <main class="text-justify text-wrap pl-4 pr-4 py-3 flex-grow-1" style="width: 100vw; ">
+    <h2>Overview</h2>
+    <p> O moodle toolkit é uma ferramenta criada para facilitar a conversão de arquivos PDF para os dois principais formatos acadêmicos: TeX e GIFT. </p> 
+    <p>TeX é referência mundial para a escrita de artigos científicos e é o padrão utilizado nas grandes revistas e conferências.</p>
+    <p>GIFT é uma extensão do Markdown, utilizado pelo Moodle para gerar os questionários online.</p> 
+    <p>Pensando nisso, foi criada uma forma de que com base em um questionário PDF (como por exemplo as provas do ENADE), fosse gerado um arquivo de texto, que deve ser manualmente formatado em markdown e automaticamente convertido nos formatos desejados.</p>
+    <p>Para mais instruções, veja a página de <a href="/examples">exemplos</a>.</p> 
+  </main>
+
+  <footer class="align-bottom py-3" style="background-color: #f98012">
+    <div class="container text-center">
+      <p class="text-white font-weight-bold">Powered by Django</p> 
+      <!-- <svg width="90" height="90">       
+        <image xlink:href="https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg" style="fill:white" alt="django" width="90" height="90"/>    
+      </svg> -->
+      <p class="text-white font-weight-semibold">Made by UFMS. 2021</p>
+    </div>
+  </footer>
+
+</body>
+</html>
