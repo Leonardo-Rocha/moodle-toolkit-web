@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from .forms import UploadFileForm
-from .file_handler import handle_uploaded_files
+from .file_handler import handle_uploaded_files, pdf2text
 
 def home(request):
   return render(request, 'moodle_question_tool/home.html')
@@ -20,7 +20,8 @@ def convertion_pdf_to_text(request):
   if request.method == 'POST':
     form = UploadFileForm(request.POST, request.FILES)
     if form.is_valid():
-      handle_uploaded_files(request.FILES.getlist('files'))
+      filenames = handle_uploaded_files(request.FILES.getlist('files'))
+      pdf2text(filenames)
       # TODO: serve the converted file
       # TODO: Redirect to next page 
       return HttpResponseRedirect('/')
