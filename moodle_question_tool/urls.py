@@ -14,9 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
     path('', views.home, name='moodle_question_tool-home'),
     path('examples', views.examples, name='moodle_question_tool-examples'),
+    path('convertion', views.convertion, name='moodle_question_tool-convertion'),
+    path('convertion/pdf-to-text', views.convertion_pdf_to_text, name='moodle_question_tool-convertion_pdf_to_text'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

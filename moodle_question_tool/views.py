@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
+from .forms import UploadFileForm
+from .file_handler import handle_uploaded_files
 
 def home(request):
   return render(request, 'moodle_question_tool/home.html')
@@ -6,3 +10,20 @@ def home(request):
 
 def examples(request):
   return render(request, 'moodle_question_tool/examples.html')
+
+
+def convertion(request):
+  return render(request, 'moodle_question_tool/convertion.html')
+
+
+def convertion_pdf_to_text(request):
+  if request.method == 'POST':
+    form = UploadFileForm(request.POST, request.FILES)
+    if form.is_valid():
+      handle_uploaded_files(request.FILES.getlist('files'))
+      # TODO: serve the converted file
+      # TODO: Redirect to next page 
+      return HttpResponseRedirect('/')
+  else:
+    form = UploadFileForm()
+  return render(request, 'moodle_question_tool/convertion-pdftotext.html', {'form': form})
