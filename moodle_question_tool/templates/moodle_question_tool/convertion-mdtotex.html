@@ -1,0 +1,111 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moodle Question Toolkit</title>
+</head>
+<body class="h-100 d-flex flex-column" onload="parseUploadedFiles()">
+  <header>
+    <!-- NAVBAR-->
+    <nav class="navbar navbar-expand-lg py-3 navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a href="/" class="navbar-brand">
+          <!-- Logo Image -->
+          <img src="https://www.ufms.br/wp-content/uploads/2016/03/logo.jpg" width="45" alt="" class="d-inline-block align-middle mr-2">
+          <!-- Logo Text -->
+          <span class="text-uppercase font-weight-semibold">Moodle Toolkit</span>
+        </a>
+
+        <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/examples" class="nav-link">Examples</a></li>
+            <li class="nav-item active"><a href="/convertion" class="nav-link">Convertion <span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  {% block content %}
+  <main class="text-justify text-wrap pl-4 pr-4 py-3 flex-grow-1" style="width: 100vw; ">
+    <h1>MD to TeX</h1>
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <div class="form-group">
+        <label for="files">Selecione os arquivos (somente .txt ou .md)</label>
+        <br>
+        <input type="file" class="form-control-file" id="uploadfiles" name="files" accept=".txt,.md" onchange="parseUploadedFiles()" multiple>
+        <div id="file_path_display"></div>
+        <br>
+        <p><strong>Dica: </strong>Segure a tecla Ctrl ou Shift para selecionar múltiplos arquivos.</p>
+        <div class="container-fluid">
+          <button type="submit" class="btn btn-primary">Converter</button>
+          <button type="button" class="btn btn-primary ml-4" onclick="window.location.href='/convertion/pdf-to-text';">Anterior</button>
+        </div>
+      </div>
+    </form>
+    {% if url %}
+      <p>Download: <a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
+  </main>
+  {% endblock %}
+
+  <script>
+    function parseUploadedFiles() {
+      const uploadFilesInput = document.getElementById("uploadfiles");
+      let txt = "";
+      if ('files' in uploadFilesInput) {
+        if (uploadFilesInput.files.length == 0) {
+          txt = "Selecione um ou mais arquivos.";
+        } else {
+          for (var i = 0; i < uploadFilesInput.files.length; i++) {
+            txt += "<br><strong>" + (i+1) + ". ";
+            var file = uploadFilesInput.files[i];
+            if ('name' in file) {
+              txt += file.name + "</strong><br>";
+            }
+            if ('size' in file) {
+              txt += "Tamanho: " + file.size + " bytes <br>";
+            }
+          }
+        }
+      } 
+      else {
+        if (uploadFilesInput.value == "") {
+          txt += "Selecione um ou mais arquivos.";
+        } else {
+          txt += "O envio de arquivos de arquivos não é suportado pelo seu navegador.";
+          txt  += "<br>Caminho do arquivo selecionado: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+        }
+      }
+      document.getElementById("file_path_display").innerHTML = txt;
+    }
+  </script>
+
+  <footer class="align-bottom py-3" style="background-color: #f98012">
+    <div class="container text-center">
+      <p class="text-white font-weight-bold">Powered by Django</p> 
+      <!-- <svg width="90" height="90">       
+        <image xlink:href="https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg" style="fill:white" alt="django" width="90" height="90"/>    
+      </svg> -->
+      <p class="text-white font-weight-semibold">Made by UFMS. 2021</p>
+    </div>
+  </footer>
+
+</body>
+</html>

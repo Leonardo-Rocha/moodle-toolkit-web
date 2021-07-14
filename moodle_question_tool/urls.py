@@ -23,7 +23,9 @@ urlpatterns = [
     path('examples', views.examples, name='moodle_question_tool-examples'),
     path('convertion', views.convertion, name='moodle_question_tool-convertion'),
     path('convertion/pdf-to-text', views.convertion_pdf_to_text, name='moodle_question_tool-convertion_pdf_to_text'),
+    path('convertion/md-to-tex', views.convertion_md_to_tex, name='moodle_question_tool-convertion_md_to_tex'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# TODO: uncomment this when there's a background server for uploading static files (Apache, NGINX...)
+# if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
